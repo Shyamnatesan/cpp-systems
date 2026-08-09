@@ -1,0 +1,10 @@
+CompileFlags:
+  CompilationDatabase: build
+
+InlayHints:
+  Enabled: Yes
+  DeducedTypes: Yes
+  ParameterNames: Yes
+
+Diagnostics:
+  UnusedIncludes: None

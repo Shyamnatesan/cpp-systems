@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.24)
+
+project(cpp-systems LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+
+
+function(add_experiment name)
+  add_executable(${name} src/${name}/main.cpp)
+  target_include_directories(${name} PRIVATE src/${name})
+endfunction()
+
+
+add_experiment(vector)
