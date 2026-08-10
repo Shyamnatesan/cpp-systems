@@ -16,3 +16,4 @@ endfunction()
 
 
 add_experiment(vector)
+add_experiment(malloc_stack)

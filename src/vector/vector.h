@@ -46,9 +46,9 @@ public:
 
   const T &at(size_t idx) { return ptr_[idx]; }
 
-  size_t get_size() { return size_; }
+  size_t size() { return size_; }
 
-  size_t get_capacity() { return capacity_; }
+  size_t capacity() { return capacity_; }
 
   void shrink_to_fit() { MoveToNewBlock(size_); }
 

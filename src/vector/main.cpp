@@ -32,13 +32,13 @@ int main() {
       .last_name = "eight",
   });
 
-  assert(vec.get_size() == 4);
-  assert(vec.get_capacity() == 27);
+  assert(vec.size() == 4);
+  assert(vec.capacity() == 27);
 
   vec.pop_back();
-  assert(vec.get_size() == 3);
-  assert(vec.get_capacity() == 27);
+  assert(vec.size() == 3);
+  assert(vec.capacity() == 27);
 
   vec.shrink_to_fit();
-  assert(vec.get_capacity() == vec.get_size()); // 3
+  assert(vec.capacity() == vec.size()); // 3
 }
