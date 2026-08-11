@@ -14,7 +14,7 @@ public:
   ~MallocStack() = default;
 
   void *alloc(size_t size, size_t align = alignof(std::max_align_t)) {
-    // Step 1: Round the requested size up to the next multiple of `align`.
+    // Step 1: Round the requested size UP to the next multiple of `align`.
     //
     // We need the allocated block to end on an alignment boundary so that
     // the next allocation can start cleanly. The classic integer way to
