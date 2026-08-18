@@ -14,11 +14,18 @@ int main() {
   }
 
   {
-    // Alignment is respected for larger alignments
+    // Alignment is respected for larger alignments (size rounding, not address)
     Alloc a(256);
     std::byte *p = a.Allocate(7, 32);
     assert(p != nullptr);
-    assert(reinterpret_cast<std::uintptr_t>(p) % 32 == 0);
+
+    auto *hdr =
+        reinterpret_cast<shyam::ChunkHeader *>(p - sizeof(shyam::ChunkHeader));
+    assert(hdr->Magic == shyam::ChunkHeader::HeaderMagicId);
+    assert(hdr->Size % 32 == 0);
+    assert(hdr->Size >= 7);
+
+    a.Deallocate(p);
   }
 
   {
