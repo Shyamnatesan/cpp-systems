@@ -1,9 +1,12 @@
 
+#include "shyam/meta/container_int.hpp"
 #include "shyam/meta/fibonacci.hpp"
 #include "shyam/meta/index_access.hpp"
+#include "shyam/meta/popback.hpp"
 #include "shyam/meta/popfront.hpp"
 #include "shyam/meta/pushback.hpp"
 #include "shyam/meta/pushfront.hpp"
+#include "shyam/meta/reverse.hpp"
 #include "shyam/meta/sum_accumulator.hpp"
 
 #include <limits>
@@ -59,4 +62,16 @@ int main() {
   static_assert(
       std::is_same_v<Numbers<2, 3, 4>, PushBack<4, Numbers<2, 3>>::type>);
   static_assert(std::is_same_v<Numbers<1>, PushBack<1, Numbers<>>::type>);
+
+  // reverse
+  static_assert(
+      std::is_same_v<Numbers<1, 2, 3, 4>, Reverse<Numbers<4, 3, 2, 1>>::type>);
+
+  static_assert(std::is_same_v<Numbers<1>, Reverse<Numbers<1>>::type>);
+
+  static_assert(std::is_same_v<Numbers<>, Reverse<Numbers<>>::type>);
+
+  // popback
+  static_assert(
+      std::is_same_v<Numbers<1, 2>, typename PopBack<Numbers<1, 2, 3>>::type>);
 }
