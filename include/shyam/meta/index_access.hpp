@@ -1,11 +1,11 @@
 #pragma once
 
-#include "shyam/meta/numbers.hpp"
+#include "container_int.hpp"
 
 #include <limits>
 #include <type_traits>
 
-namespace shyam::meta {
+namespace shyam::meta::typelist {
 
 template <int Idx, typename Container> struct ValueAt;
 
@@ -32,4 +32,4 @@ struct ValueAt<Idx, Numbers<Head, Rest...>> {
                                    : ValueAt<Idx - 1, Numbers<Rest...>>::value;
 };
 
-} // namespace shyam::meta
+} // namespace shyam::meta::typelist
