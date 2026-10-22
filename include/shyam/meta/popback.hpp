@@ -13,7 +13,8 @@ namespace v1 {
 template <typename Container> struct PopBack;
 
 // assume a list [1, 2, 3, 4]
-// we have to popback meaning pop() should result in [1, 2, 3], with 4 removed.
+// we have to popback meaning pop() should result in [1, 2, 3], with 4
+// removed.
 //
 // one way to do this, is reverse the list: [4, 3, 2, 1]
 // once reversed, pop from front. [3, 2, 1]
@@ -21,15 +22,16 @@ template <typename Container> struct PopBack;
 //
 // we do this, because popping from front is really simple.
 //
-// another way, is recursively calling popback, until we have only one element,
-// which will pop the last element. and then, push front the remaining in the
-// new list.
+// another way, is recursively calling popback, until we have only one
+// element, which will pop the last element. and then, push front the
+// remaining in the new list.
 //
 template <int... head> struct PopBack<Numbers<head...>> {
   using ReversedList = typename Reverse<Numbers<head...>>::type;
   using PoppedList = typename PopFront<ReversedList>::type;
   using type = typename Reverse<PoppedList>::type;
 };
+
 } // namespace v1
 
 // ********************************************************************************

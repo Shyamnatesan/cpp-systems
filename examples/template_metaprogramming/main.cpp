@@ -1,4 +1,5 @@
 
+#include "shyam/meta/concat.hpp"
 #include "shyam/meta/container_int.hpp"
 #include "shyam/meta/fibonacci.hpp"
 #include "shyam/meta/index_access.hpp"
@@ -8,6 +9,7 @@
 #include "shyam/meta/pushfront.hpp"
 #include "shyam/meta/reverse.hpp"
 #include "shyam/meta/sum_accumulator.hpp"
+#include "shyam/meta/unique.hpp"
 
 #include <limits>
 
@@ -74,4 +76,16 @@ int main() {
   // popback
   static_assert(
       std::is_same_v<Numbers<1, 2>, typename PopBack<Numbers<1, 2, 3>>::type>);
+
+  // concat
+  static_assert(std::is_same_v<Numbers<1, 2, 3, 4>,
+                               Concat<Numbers<1, 2>, Numbers<3, 4>>::type>);
+  static_assert(
+      std::is_same_v<Numbers<1>, Concat<Numbers<1>, Numbers<>>::type>);
+  static_assert(std::is_same_v<Numbers<>, Concat<Numbers<>, Numbers<>>::type>);
+
+  // unique
+  static_assert(
+      std::is_same_v<Numbers<1, 3, 4, 5>,
+                     typename Unique<Numbers<1, 3, 3, 3, 4, 5, 5>>::type>);
 }

@@ -5,6 +5,7 @@
 
 namespace shyam::meta::typelist {
 
+namespace v1 {
 // forward declaration, so we can specialize later
 template <typename Container> struct Reverse;
 
@@ -46,5 +47,46 @@ template <int head, int... rest> struct Reverse<Numbers<head, rest...>> {
   using ReversedTail = typename Reverse<Numbers<rest...>>::type;
   using type = typename PushBack<head, ReversedTail>::type;
 };
+
+} // namespace v1
+
+inline namespace v2 {
+
+template <typename NumbersInput, typename NumbersOutput = Numbers<>>
+struct Reverse {
+  // note that this uses the accumulator style, so the final type points to the
+  // accumulated type
+  using type = NumbersOutput;
+};
+
+// Accumulator-style Reverse
+//
+// Walk-through for Reverse<Numbers<1, 2, 3>>
+//
+// The second template argument is an accumulator that starts empty
+// and grows at the front while the input shrinks.
+//
+// Start: input = Numbers<1, 2, 3>, output = Numbers<>
+//   Front=1, Rest=2,3, NumbersOutput=(empty)
+//   -> Reverse<Numbers<2, 3>, Numbers<1>>
+//
+//   Front=2, Rest=3, NumbersOutput=1
+//   -> Reverse<Numbers<3>, Numbers<2, 1>>
+//
+//   Front=3, Rest=(empty), NumbersOutput=2,1
+//   -> Reverse<Numbers<>, Numbers<3, 2, 1>>
+//
+// Base case (input empty):
+//   type = NumbersOutput  ->  Numbers<3, 2, 1>
+//
+// Final result: Numbers<3, 2, 1>
+
+template <int Head, int... Rest, int... NumbersOutput>
+struct Reverse<Numbers<Head, Rest...>, Numbers<NumbersOutput...>> {
+  using type =
+      typename Reverse<Numbers<Rest...>, Numbers<Head, NumbersOutput...>>::type;
+};
+
+} // namespace v2
 
 } // namespace shyam::meta::typelist
